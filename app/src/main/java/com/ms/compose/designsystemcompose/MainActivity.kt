@@ -1,10 +1,14 @@
 package com.ms.compose.designsystemcompose
 
+import AutoImageSlider2
+import com.ms.compose.ux4gdesign.components.swipeView.AutoImageSlider
+import SingleThumbSlider
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,6 +23,10 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -32,12 +40,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ms.compose.designsystemcompose.ui.theme.UX4GDesignSystemTheme
 import com.ms.compose.ux4gdesign.components.buttons.FillButton
 import com.ms.compose.ux4gdesign.components.buttons.FillButton2
+import com.ms.compose.ux4gdesign.components.buttons.OutlineButton
+import com.ms.compose.ux4gdesign.components.dropDownViews.MaterialStyledDropdown
 import com.ms.compose.ux4gdesign.components.editTextView.CustomEditText
 import com.ms.compose.ux4gdesign.components.editTextView.CustomMultiLineEditText
 import com.ms.compose.ux4gdesign.components.editTextView.EditTextState
@@ -46,12 +57,15 @@ import com.ms.compose.ux4gdesign.components.imageViewComponent.ImageWithDynamicG
 import com.ms.compose.ux4gdesign.components.listGroup.CustomListCard1Compose
 import com.ms.compose.ux4gdesign.components.listGroup.CustomListCard2Compose
 import com.ms.compose.ux4gdesign.components.listGroup.CustomListCard3
+import com.ms.compose.ux4gdesign.components.listGroup.ExpandableCard
 import com.ms.compose.ux4gdesign.components.loaderView.CircularLoader
 import com.ms.compose.ux4gdesign.components.progressbarComponent.CircularProgressBar
 import com.ms.compose.ux4gdesign.components.progressbarComponent.HalfCircularProgressBar
 import com.ms.compose.ux4gdesign.components.progressbarComponent.LinearProgressBar2Compose
-import com.ms.compose.ux4gdesign.components.rangeBar.CustomRangeSlider
+import com.ms.compose.ux4gdesign.components.rangeBar.DoubleThumbRangeSlider
 import com.ms.compose.ux4gdesign.components.switchButton.CustomSwitchButton
+import com.ms.compose.ux4gdesign.theme.UX4G_danger
+import com.ms.compose.ux4gdesign.theme.UX4G_success
 import kotlinx.coroutines.delay
 
 class MainActivity : ComponentActivity() {
@@ -77,19 +91,139 @@ fun Greeting() {
             Column(
                 modifier = Modifier.padding(innerPadding).verticalScroll(rememberScrollState()),
             ) {
-                FillButton(
-                    text = "Button",
-                    onClick = {
 
-                    }
-                )
+                Row( modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceEvenly,
+                    verticalAlignment = Alignment.CenterVertically) {
 
-                FillButton2(
-                    text = "Button",
-                    onClick = {
+                    FillButton(
+                        text = "Button",
+                        onClick = {
 
-                    }
-                )
+                        },
+                        textStyle = TextStyle(fontSize = 20.sp)
+                    )
+
+                    FillButton(
+                        text = "Button",
+                        startIcon = {
+                            Icon(
+                                imageVector = Icons.Default.Add,
+                                contentDescription = "Add",
+                                tint = Color.White,
+                            )
+                        },
+                        backgroundColor = UX4G_danger,
+                        onClick = {
+
+                        }
+                    )
+
+                    FillButton(
+                        text = "Button",
+                        endIcon = {
+                            Icon(
+                                imageVector = Icons.Default.ArrowDropDown,
+                                contentDescription = "Add",
+                                tint = Color.White,
+                            )
+                        },
+                        backgroundColor = Color.Green,
+                        onClick = {
+
+                        }
+                    )
+                }
+
+
+                Row( modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceEvenly,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+
+                    FillButton2(
+                        text = "Button",
+                        onClick = {
+
+                        },
+                        textStyle = TextStyle(fontSize = 20.sp)
+                    )
+                    FillButton2(
+                        text = "Button",
+                        onClick = {
+
+                        },
+                        iconStart = {
+                            Icon(
+                                imageVector = Icons.Default.Add,
+                                contentDescription = "Add",
+                                tint = Color.White,
+                            )
+                        },
+                        backgroundColor = UX4G_danger,
+                    )
+                    FillButton2(
+                        text = "Button",
+                        onClick = {
+
+                        },
+                        iconEnd = {
+                            Icon(
+                                imageVector = Icons.Default.ArrowDropDown,
+                                contentDescription = "Add",
+                                tint = Color.White,
+                            )
+                        },
+
+                        backgroundColor = UX4G_success,
+                    )
+                }
+
+
+
+                // Outline Buttons
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceEvenly,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+
+                    OutlineButton(
+                        text = "Add Item",
+                        onClick = { /* Handle click */ },
+                    )
+
+
+                    OutlineButton(
+                        text = "Add Item",
+                        onClick = { /* Handle click */ },
+                        startIcon = {
+                            Icon(
+                                imageVector = Icons.Default.Add,
+                                contentDescription = "Add",
+                                tint = Color.Red,
+                            )
+                        },
+                        buttonColor = UX4G_danger
+                    )
+
+
+                    OutlineButton(
+                        text = "Add Item",
+                        onClick = { /* Handle click */ },
+                        endIcon = {
+                            Icon(
+                                Icons.Default.ArrowDropDown,
+                                contentDescription = "Arrow",
+                                tint = Color.Green
+                            )
+                        },
+                        buttonColor = UX4G_success
+                    )
+                }
+
+
 
                 GreetingPreview(imageUrl)
 
@@ -141,14 +275,91 @@ fun Greeting() {
                 )
                 loaderScreen()
                 RangeSilder()
+                SingleThumbSliderDemo()
                 ProgressBarDemoScreen()
                 SwitchDemo()
                 ListGroupViews()
+                ExpandableCardView()
+                ExampleScreen()
+                TestAutoSliderScreen()
+                SampleDropdown()
             }
         }
     }
 }
 
+@Composable
+fun SampleDropdown() {
+    var selected by remember { mutableStateOf<String?>(null) }
+    val options = listOf("Apple", "Banana", "Cherry", "Date")
+
+    MaterialStyledDropdown(
+        items = options,
+        selectedItem = selected,
+        hint = "Select a fruit",
+        onItemSelected = { selected = it },
+        textColor = Color.Black,
+        hintColor = Color.Gray,
+        backgroundColor = Color.White,
+        borderColor = Color.LightGray,
+        iconColor = Color.Black,
+        modifier = Modifier
+                    .fillMaxWidth()
+                .padding(16.dp)
+                .background(Color.White, shape = RoundedCornerShape(8.dp))
+                .border(1.dp, Color.LightGray, shape = RoundedCornerShape(8.dp))
+    )
+}
+
+
+@Composable
+fun ExampleScreen() {
+    val images = listOf(
+        "https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?w=1200&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D",
+        "https://images.unsplash.com/photo-1575936123452-b67c3203c357?w=1200&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D",
+        "https://images.unsplash.com/photo-1576158113928-4c240eaaf360?w=1200&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8aW1hZ2V8ZW58MHx8MHx8fDA%3D"
+    )
+
+    AutoImageSlider2(
+        imageUrls = images,
+        autoScrollInterval = 3000L,
+        dotActiveColor = Color.Red,
+        dotInactiveColor = Color.LightGray,
+        modifier = Modifier.fillMaxWidth()
+    )
+}
+
+
+@Composable
+fun TestAutoSliderScreen() {
+    val images = listOf(
+        "https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?w=1200&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D",
+        "https://images.unsplash.com/photo-1575936123452-b67c3203c357?w=1200&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D",
+        "https://images.unsplash.com/photo-1576158113928-4c240eaaf360?w=1200&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8aW1hZ2V8ZW58MHx8MHx8fDA%3D"
+    )
+
+    AutoImageSlider(
+        imageUrls = images,
+        autoScrollInterval = 3000L,
+        activeColor = Color.Red,
+        inactiveColor = Color.LightGray,
+        modifier = Modifier.fillMaxWidth()
+    )
+}
+
+
+@Composable
+fun ExpandableCardView() {
+    ExpandableCard(
+        title = "Card Title",
+        content = "This is the expandable content. It can be multiple lines of text...",
+        cornerRadius = 12.dp,
+        backgroundColor = Color.White,
+        strokeColor = Color.LightGray,
+        strokeWidth = 1.dp,
+        modifier = Modifier.padding(16.dp)
+    )
+}
 
 @Composable
 fun ListGroupViews() {
@@ -300,7 +511,7 @@ fun loaderScreen() {
 fun RangeSilder() {
     var leftValue by remember { mutableFloatStateOf(20f) }
     var rightValue by remember { mutableFloatStateOf(80f) }
-    CustomRangeSlider(
+    DoubleThumbRangeSlider(
         modifier = Modifier
             .fillMaxWidth()
             .height(60.dp),  // enough height for thumbs + labels
@@ -321,6 +532,18 @@ fun RangeSilder() {
         }
     )
 }
+
+@Composable
+fun SingleThumbSliderDemo() {
+    SingleThumbSlider(
+        modifier = Modifier.fillMaxWidth().height(80.dp),
+        initialValue = 30f,
+        onValueChanged = { value ->
+            println("Slider value: $value")
+        }
+    )
+}
+
 
 @Composable
 fun ProgressBarDemoScreen() {

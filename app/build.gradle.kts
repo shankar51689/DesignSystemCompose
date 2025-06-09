@@ -61,6 +61,6 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
     implementation("io.coil-kt.coil3:coil-compose:3.1.0")
-    implementation("com.github.shankar51689:DesignSystemCompose:1.0.0")
-//    implementation(project(":UX4GDesign"))
+//    implementation("com.github.shankar51689:DesignSystemCompose:1.0.0")
+    implementation(project(":UX4GDesign"))
 }

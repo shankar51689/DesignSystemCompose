@@ -72,4 +72,12 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.1")
     implementation("io.coil-kt.coil3:coil-compose:3.1.0")
     implementation("androidx.compose.material:material-icons-extended:1.7.0")
+
+    implementation( "androidx.compose.foundation:foundation:1.8.2")
+    implementation( "androidx.compose.runtime:runtime-livedata:1.8.2")
+    implementation( "com.google.accompanist:accompanist-pager:0.34.0")
+    implementation( "com.google.accompanist:accompanist-pager-indicators:0.34.0")
+
+    implementation ("io.coil-kt:coil-compose:2.4.0")
+
 }

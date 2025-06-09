@@ -1,17 +1,17 @@
 package com.ms.compose.ux4gdesign.components.buttons
 
-import androidx.annotation.DrawableRes
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ripple.rememberRipple
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -21,24 +21,26 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.ms.compose.ux4gdesign.theme.UX4G_primary
 
+
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun FillButton(
     modifier: Modifier = Modifier,
     text: String,
     onClick: () -> Unit,
-    @DrawableRes iconStart: Int? = null,
-    @DrawableRes iconEnd: Int? = null,
-    iconSize: Dp = 14.dp,
+    onLongClick: (() -> Unit)? = null, // Optional long-click
+    startIcon: (@Composable () -> Unit)? = null,
+    endIcon: (@Composable () -> Unit)? = null,
+    iconSpacing: Dp = 5.dp,
     cornerRadius: Dp = 8.dp,
-    drawablePadding: Dp = 5.dp,
-    backgroundColor: Color = MaterialTheme.colorScheme.primary,
-    textColor: Color = MaterialTheme.colorScheme.onPrimary,
+    backgroundColor: Color = UX4G_primary,
+    textColor: Color = Color.White,
     textStyle: TextStyle = MaterialTheme.typography.bodyMedium,
     enabled: Boolean = true
 ) {
@@ -46,14 +48,15 @@ fun FillButton(
 
     Surface(
         modifier = modifier
-            .defaultMinSize(minHeight = 48.dp)
+            .defaultMinSize(minHeight = 28.dp)
             .clip(RoundedCornerShape(cornerRadius))
             .background(backgroundColor)
-            .clickable(
+            .combinedClickable( // Use combinedClickable for long press
                 interactionSource = interactionSource,
-                indication = rememberRipple(color = textColor.copy(alpha = 0.3f)),
+                indication = rememberRipple(color = Color.White), // Use textColor for ripple
                 enabled = enabled,
-                onClick = onClick
+                onClick = onClick,
+                onLongClick = onLongClick ?: {} // Handle nullable onLongClick
             )
             .padding(horizontal = 16.dp),
         color = Color.Transparent,
@@ -64,15 +67,9 @@ fun FillButton(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
-            iconStart?.let {
-                Icon(
-                    painter = painterResource(id = it),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .size(iconSize)
-                        .padding(end = drawablePadding),
-                    tint = textColor
-                )
+            if (startIcon != null) {
+                startIcon()
+                Spacer(modifier = Modifier.width(iconSpacing))
             }
 
             Text(
@@ -83,15 +80,9 @@ fun FillButton(
                 overflow = TextOverflow.Ellipsis
             )
 
-            iconEnd?.let {
-                Icon(
-                    painter = painterResource(id = it),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .size(iconSize)
-                        .padding(start = drawablePadding),
-                    tint = textColor
-                )
+            if (endIcon != null) {
+                Spacer(modifier = Modifier.width(iconSpacing))
+                endIcon()
             }
         }
     }
